@@ -91,7 +91,10 @@ function! SyntaxRange#IncludeEx( regionDefinition, filetype )
 	let l:hasSetMainSyntax = 1
     endif
 
-    execute printf('syntax include @%s syntax/%s.vim', l:syntaxGroup, a:filetype)
+    try
+	execute printf('syntax include @%s syntax/%s.vim', l:syntaxGroup, a:filetype)
+    catch /E403/
+    endtry
 
     if exists('l:hasSetMainSyntax')
 	unlet! g:main_syntax
